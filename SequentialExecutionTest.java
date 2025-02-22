@@ -17,7 +17,6 @@ public class SequentialExecutionTest {
         print("--------- Starting Redis experiment ---------");
 
         print("** Executing three reads");
-        // stressTestRedisRead();
         for (int i = 0; i < 3; i++) {
             printf("1.000: " + stressTestRedisRead(1000) + " ms\n");
             printf("10.000: " + stressTestRedisRead(10000) + " ms\n");
@@ -26,7 +25,6 @@ public class SequentialExecutionTest {
         }
         
         print("** Executing three writes");
-        // stressTestRedisRead();
         for (int i = 0; i < 3; i++) {
             printf("1.000: " + stressTestRedisWrite(1000) + " ms\n");
             printf("10.000: " + stressTestRedisWrite(10000) + " ms\n");

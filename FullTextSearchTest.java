@@ -19,7 +19,7 @@ public class FullTextSearchTest {
     private static final String POSTGRES_PASSWORD = "Postgres2022!";
 
     public static void main(String[] args) {
-        HashMap<String, String> data = DataGenerator.generateData(1000000);
+        HashMap<String, String> data = DataGenerator.generateData(1000);
 
         redisLoadData(data);
         postgresLoadData(data);
