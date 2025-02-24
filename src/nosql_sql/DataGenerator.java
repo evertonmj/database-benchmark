@@ -1,7 +1,7 @@
+package src.nosql_sql;
+
 import com.github.javafaker.Faker;
-import com.github.javafaker.TwinPeaks;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.*;
 
@@ -24,30 +24,37 @@ public class DataGenerator {
         Faker faker = new Faker();
         HashMap<String, String> result = new HashMap<>();
         long i = 0;
-        for (; i < size; i++) {
-            String city = faker.address().cityName();
-            String country = faker.address().country();
-            String street = faker.address().streetAddress();
-            String name = faker.name().name();
 
+        String city = faker.address().cityName();
+
+        String country = faker.address().country();
+        String street = faker.address().streetName();
+        String name = faker.name().fullName(); // Added fullName() to make it specific
+        List<Map<String, String>> favoriteQuotes = List.of(
+                Map.of("quote", faker.twinPeaks().character(), "character", faker.twinPeaks().character()),
+                Map.of("quote", faker.hitchhikersGuideToTheGalaxy().quote(), "character", faker.hitchhikersGuideToTheGalaxy().character()));
+
+        for (; i < size; i++) {
             String json = new Gson().toJson(Map.of(
-                    "city", city,
+            "city", city,
                     "country", country,
                     "street", street,
-                    "name", name
+                    "name", name,
+                    "favoriteQuotes", favoriteQuotes
             ));
 
             result.put("data:"+i, json);
         }
+//
+//        String json = new Gson().toJson(Map.of(
+//                "city", "Camacari",
+//                "country", "Brazil",
+//                "street", "Rua Cinco do Canal",
+//                "name", "Ever"
+//        ));
 
-        String json = new Gson().toJson(Map.of(
-                "city", "Camacari",
-                "country", "Brazil",
-                "street", "Rua Cinco do Canal",
-                "name", "Ever"
-        ));
+//        result.put("data:"+(i+1), json);
 
-        result.put("data:"+(i+1), json);
 
         return result;
     }

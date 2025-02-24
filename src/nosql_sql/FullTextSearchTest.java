@@ -1,3 +1,5 @@
+package src.nosql_sql;
+
 import redis.clients.jedis.UnifiedJedis;
 import redis.clients.jedis.json.Path2;
 import redis.clients.jedis.search.*;
@@ -8,24 +10,22 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.*;
-import java.util.logging.Logger;
 
 public class FullTextSearchTest {
     private static final String REDIS_HOST = "127.0.0.1";
     private static final int REDIS_PORT = 6379;
-    private static final long ITERATION_SIZE = 1000000;
     private static final String POSTGRES_URL = "jdbc:postgresql://127.0.0.1:5432/";
     private static final String POSTGRES_USER = "postgres";
     private static final String POSTGRES_PASSWORD = "Postgres2022!";
 
     public static void main(String[] args) {
-        HashMap<String, String> data = DataGenerator.generateData(1000);
+        HashMap<String, String> data = DataGenerator.generateData(10000);
 
         redisLoadData(data);
         postgresLoadData(data);
 
         performFullTextSearch("Brazil");
-        performFullTextSearch("lalalala");
+        performFullTextSearch("plastic");
         performFullTextSearch("United States");
         performFullTextSearch("Pindamanhagaba");
     }
