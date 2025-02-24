@@ -45,15 +45,19 @@ public class DataGenerator {
 
             result.put("data:"+i, json);
         }
-//
-//        String json = new Gson().toJson(Map.of(
-//                "city", "Camacari",
-//                "country", "Brazil",
-//                "street", "Rua Cinco do Canal",
-//                "name", "Ever"
-//        ));
 
-//        result.put("data:"+(i+1), json);
+        String json = new Gson().toJson(Map.of(
+                "city", "Camacari",
+                "country", "Brazil",
+                "street", "Rua Cinco do Canal",
+                "name", "Ever",
+                "favoriteQuotes", List.of(
+                        Map.of("quote", "She's dead, wrapped in plastic!", "character", "Peter Martell"),
+                        Map.of("quote", "I am Groot", "character", "Groot")
+                )
+        ));
+
+        result.put("data:"+(i+1), json);
 
 
         return result;
@@ -62,12 +66,18 @@ public class DataGenerator {
     public static List<String> getSearchTermsFromData(Collection<String> data, Integer size) {
         List<String> terms = new ArrayList<>();
 
-//        for(int i = 0; i < size; i++) {
-//            String term = List.of(data).get(i).toString();
-//            terms.add(term);
-//        }
+        List<String> dataAsList = new ArrayList<>(data);
+        int boundedSize = Math.min(size, dataAsList.size());
+        Random random = new Random();
 
-        terms.add("Brazil");
+        for(int i = 0; i < size
+                ; i++) {
+            int randomIndex = random.nextInt(dataAsList.size()); // Use dataAsList size
+            String term = dataAsList.get(randomIndex); // Fetch directly from dataAsList
+            terms.add(term);
+
+        }
+
         return terms;
     }
     

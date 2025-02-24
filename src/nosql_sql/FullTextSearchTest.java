@@ -24,6 +24,7 @@ public class FullTextSearchTest {
         redisLoadData(data);
         postgresLoadData(data);
 
+        List<String> searchTerms = DataGenerator.getSearchTermsFromData(data.values(),  5);
         performFullTextSearch("Brazil");
         performFullTextSearch("plastic");
         performFullTextSearch("United States");
@@ -107,6 +108,7 @@ public class FullTextSearchTest {
 
         try (UnifiedJedis jedis = new UnifiedJedis("http://" + REDIS_HOST + ":" + REDIS_PORT)) {
             SearchResult result = jedis.ftSearch("data", searchTerm);
+            print("Found!");
             print("Redis search results: " + result.getDocuments());
         } catch (JedisDataException e) {
             print("Redis search failed: " + e.getMessage());
@@ -149,7 +151,7 @@ public class FullTextSearchTest {
                     results.add(rs.getString("data"));
                     count++;
                 }
-//                print("PostgreSQL search results: " + results);
+                print("Found!");
             }
         }
 
