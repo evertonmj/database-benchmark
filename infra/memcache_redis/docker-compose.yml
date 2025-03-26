@@ -8,10 +8,10 @@ services:
         - redis_data:/data
     memcached:
       image: memcached:latest
-      container_name: memcached
+      container_name: memcached-test
       ports:
         - "11211:11211"
-      command: memcached -m 256
+      command: memcached -m 64
 volumes:
   redis_data:
   dynamodb-data:

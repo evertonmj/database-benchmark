@@ -1,4 +1,4 @@
-package benchmarks.nosql_sql;
+package benchmarks.keyvalue;
 
 import benchmarks.keyvalue.tests.MemcachedOperations;
 import benchmarks.keyvalue.tests.RedisOperations;
@@ -17,7 +17,7 @@ public class KeyValueBenchmark {
 
     private Jedis jedis;
     private MemcachedClient memcachedClient;
-    private static final int ITERATIONS = 10000;
+    private static final int ITERATIONS = 100;
 
     @Setup(Level.Trial)
     public void setup() throws IOException {
