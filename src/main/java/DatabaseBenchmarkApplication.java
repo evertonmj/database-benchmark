@@ -1,6 +1,5 @@
 import benchmarks.keyvalue.tests.MemcachedOperations;
 import benchmarks.keyvalue.tests.RedisOperations;
-import benchmarks.nosql_sql.RunSQLNoSQLTests;
 import net.spy.memcached.MemcachedClient;
 import redis.clients.jedis.Jedis;
 
