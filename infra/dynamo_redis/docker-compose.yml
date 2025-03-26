@@ -6,14 +6,12 @@ services:
         - "8001:8001"
       volumes:
         - redis_data:/data
-    dynamodb-local:
-      image: amazon/dynamodb-local
-      container_name: dynamodb-local
+    memcached:
+      image: memcached:latest
+      container_name: memcached
       ports:
-        - "8000:8000"
-      command: "-jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal/data"
-      volumes:
-        - ./dynamodb_data:/home/dynamodblocal/data
+        - "11211:11211"
+      command: memcached -m 256
 volumes:
   redis_data:
   dynamodb-data:
