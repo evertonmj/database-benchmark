@@ -1,7 +1,6 @@
 package benchmarks.keyvalue.tests;
 
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.Pipeline;
 
 public class RedisOperations {
 
@@ -11,11 +10,9 @@ public class RedisOperations {
     public static long read(Jedis jedisConn, int iteration_size) {
         long startTime = System.nanoTime();
         try {
-            Pipeline redisPipeline = jedisConn.pipelined();
             for (int i = 0; i < iteration_size; i++) {
-                redisPipeline.get("key" + i);
+                jedisConn.get("key" + i);
             }
-            redisPipeline.sync();
         } catch (Exception e) {
             e.printStackTrace();
         }
