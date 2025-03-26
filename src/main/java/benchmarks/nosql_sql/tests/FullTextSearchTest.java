@@ -1,15 +1,20 @@
-package src.nosql_sql;
+package benchmarks.nosql_sql.tests;
 
 import redis.clients.jedis.UnifiedJedis;
+import redis.clients.jedis.exceptions.JedisDataException;
 import redis.clients.jedis.json.Path2;
 import redis.clients.jedis.search.*;
-import redis.clients.jedis.exceptions.JedisDataException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static utils.BenchmarkUtils.print;
 
 public class FullTextSearchTest {
     private static final String REDIS_HOST = "127.0.0.1";
@@ -18,20 +23,7 @@ public class FullTextSearchTest {
     private static final String POSTGRES_USER = "postgres";
     private static final String POSTGRES_PASSWORD = "Postgres2022!";
 
-    public static void main(String[] args) {
-        HashMap<String, String> data = DataGenerator.generateData(10000);
-
-        redisLoadData(data);
-        postgresLoadData(data);
-
-        List<String> searchTerms = DataGenerator.getSearchTermsFromData(data.values(),  5);
-        performFullTextSearch("Brazil");
-        performFullTextSearch("plastic");
-        performFullTextSearch("United States");
-        performFullTextSearch("Pindamanhagaba");
-    }
-
-    private static void redisLoadData(HashMap<String, String> values) {
+    public static void redisLoadData(HashMap<String, String> values) {
         long startTime = System.nanoTime();
         print("Loading data for Redis");
         try (UnifiedJedis jedis = new UnifiedJedis("http://" + REDIS_HOST + ":" + REDIS_PORT)) {
@@ -60,7 +52,7 @@ public class FullTextSearchTest {
         print("Carregamento dados Redis: " + (endTime - startTime) / 1_000_000);
     }
 
-    private static void postgresLoadData(HashMap<String, String> values) {
+    public static void postgresLoadData(HashMap<String, String> values) {
         long startTime = System.nanoTime();
         print("Loading data for Postgres");
         try (Connection conn = DriverManager.getConnection(POSTGRES_URL, POSTGRES_USER, POSTGRES_PASSWORD)) {
@@ -107,7 +99,8 @@ public class FullTextSearchTest {
         long startTime = System.nanoTime();
 
         try (UnifiedJedis jedis = new UnifiedJedis("http://" + REDIS_HOST + ":" + REDIS_PORT)) {
-            SearchResult result = jedis.ftSearch("data", searchTerm);
+            Query query = new Query(searchTerm);
+            SearchResult result = jedis.ftSearch("data", query);
             print("Found!");
             print("Redis search results: " + result.getDocuments());
         } catch (JedisDataException e) {
@@ -159,7 +152,5 @@ public class FullTextSearchTest {
         return (endTime - startTime) / 1_000_000;
     }
 
-    private static void print(Object value) {
-        System.out.println(value);
-    }
+    
 }

@@ -1,0 +1,19 @@
+services:
+    redis-stack:
+      image: redis/redis-stack-server
+      ports:
+        - "6379:6379"
+        - "8001:8001"
+      volumes:
+        - redis_data:/data
+    dynamodb-local:
+      image: amazon/dynamodb-local
+      container_name: dynamodb-local
+      ports:
+        - "8000:8000"
+      command: "-jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal/data"
+      volumes:
+        - ./dynamodb_data:/home/dynamodblocal/data
+volumes:
+  redis_data:
+  dynamodb-data:
