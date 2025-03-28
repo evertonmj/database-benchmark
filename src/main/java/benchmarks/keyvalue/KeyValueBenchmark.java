@@ -17,7 +17,7 @@ public class KeyValueBenchmark {
 
     private Jedis jedis;
     private MemcachedClient memcachedClient;
-    private static final int ITERATIONS = 100;
+    private static final int ITERATIONS = 100000;
 
     @Setup(Level.Trial)
     public void setup() throws IOException {
