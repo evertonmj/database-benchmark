@@ -3,3 +3,7 @@
 /.idea/
 /results/
 /databases-benchmark.iml
+/.zip
+/target/
+/dependency-reduced-pom.xml
+/infra/memcache-redis/dynamodb_data/shared-local-instance.db
