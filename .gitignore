@@ -6,4 +6,4 @@
 /.zip
 /target/
 /dependency-reduced-pom.xml
-/infra/memcache_redis/dynamodb_data/shared-local-instance.db
+/infra/memcache-redis/dynamodb_data/shared-local-instance.db
